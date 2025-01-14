@@ -1,0 +1,44 @@
+{
+  "name": "rn-simple-bubble-chat",
+  "version": "1.0.0",
+  "description": "A simple and customizable bubble chat UI component for React Native",
+  "main": "index.js",
+  "keywords": [
+    "react-native",
+    "chat",
+    "bubble-chat",
+    "chat-ui",
+    "messaging",
+    "chat-bubble",
+    "react-native-component",
+    "mobile"
+  ],
+  "author": "arul29",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arul29/rn-simple-bubble-chat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/arul29/rn-simple-bubble-chat/issues"
+  },
+  "homepage": "https://github.com/arul29/rn-simple-bubble-chat#readme",
+  "devDependencies": {
+    "@types/react": "^18.2.37",
+    "@types/react-native": "^0.72.7",
+    "react": "^18.2.0",
+    "react-native": "^0.76.5"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-native": ">=0.60.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {},
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}
