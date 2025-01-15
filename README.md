@@ -1,4 +1,4 @@
-# React Native Chat Bubble Component
+# React Native Simple Chat Bubble Component
 
 A highly customizable chat bubble component for React Native applications with smooth animations, flexible styling, and TypeScript support.
 
@@ -45,11 +45,11 @@ const SimpleExample = () => {
 
 ### Core Props
 
-| Prop      | Type      | Required | Description                                                      |
-| --------- | --------- | -------- | ---------------------------------------------------------------- |
-| message   | ReactNode | Yes      | The message content to display                                   |
-| isUser    | boolean   | Yes      | Determines if the message is from the user (true) or bot (false) |
-| timestamp | string    | Yes      | The timestamp to display with the message                        |
+| Prop      | Type    | Required | Description                                                      |
+| --------- | ------- | -------- | ---------------------------------------------------------------- |
+| message   | string  | Yes      | The message content to display                                   |
+| isUser    | boolean | Yes      | Determines if the message is from the user (true) or bot (false) |
+| timestamp | string  | Yes      | The timestamp to display with the message                        |
 
 ### Style Props
 

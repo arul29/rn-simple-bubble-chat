@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 interface ChatBubbleProps {
-  message: ReactNode;
+  message: string;
   isUser: boolean;
   timestamp: string;
   // Style Props
