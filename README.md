@@ -1,6 +1,6 @@
 # React Native Simple Chat Bubble Component
 
-A highly customizable chat bubble component for React Native applications with smooth animations, flexible styling, and TypeScript support.
+A highly customizable chat bubble component for React Native applications with smooth animations, flexible styling, TypeScript support, and image handling capabilities.
 
 ## Features
 
@@ -11,6 +11,7 @@ A highly customizable chat bubble component for React Native applications with s
 - 🔄 Optimized performance with React.memo
 - 📏 Flexible dimensions
 - ⏰ Timestamp support
+- 🖼️ Image support with customizable styling
 
 ## Installation
 
@@ -50,26 +51,28 @@ const SimpleExample = () => {
 | message   | string  | Yes      | The message content to display                                   |
 | isUser    | boolean | Yes      | Determines if the message is from the user (true) or bot (false) |
 | timestamp | string  | Yes      | The timestamp to display with the message                        |
+| imageUri  | string  | No       | Optional URI for displaying an image in the chat bubble          |
 
 ### Style Props
 
-| Prop             | Type      | Description                          |
-| ---------------- | --------- | ------------------------------------ |
-| containerStyle   | ViewStyle | Additional styles for the container  |
-| userBubbleStyle  | ViewStyle | Additional styles for user bubbles   |
-| botBubbleStyle   | ViewStyle | Additional styles for bot bubbles    |
-| messageTextStyle | TextStyle | Additional styles for message text   |
-| timestampStyle   | TextStyle | Additional styles for timestamp text |
+| Prop                | Type       | Description                            |
+| ------------------- | ---------- | -------------------------------------- |
+| containerStyle      | ViewStyle  | Additional styles for the container    |
+| userBubbleStyle     | ViewStyle  | Additional styles for user bubbles     |
+| receiverBubbleStyle | ViewStyle  | Additional styles for receiver bubbles |
+| messageTextStyle    | TextStyle  | Additional styles for message text     |
+| timestampStyle      | TextStyle  | Additional styles for timestamp text   |
+| imageStyle          | ImageStyle | Additional styles for the image        |
 
 ### Color Props
 
-| Prop            | Type   | Default           | Description                       |
-| --------------- | ------ | ----------------- | --------------------------------- |
-| userBubbleColor | string | '#007AFF'         | Background color for user bubbles |
-| botBubbleColor  | string | '#F2F2F7'         | Background color for bot bubbles  |
-| userTextColor   | string | '#FFFFFF'         | Text color for user messages      |
-| botTextColor    | string | '#000000'         | Text color for bot messages       |
-| timestampColor  | string | 'rgba(0,0,0,0.5)' | Color for timestamp text          |
+| Prop                | Type   | Default           | Description                           |
+| ------------------- | ------ | ----------------- | ------------------------------------- |
+| userBubbleColor     | string | '#007AFF'         | Background color for user bubbles     |
+| receiverBubbleColor | string | '#F2F2F7'         | Background color for receiver bubbles |
+| userTextColor       | string | '#FFFFFF'         | Text color for user messages          |
+| receiverTextColor   | string | '#000000'         | Text color for receiver messages      |
+| timestampColor      | string | 'rgba(0,0,0,0.5)' | Color for timestamp text              |
 
 ### Animation Props
 
@@ -88,6 +91,21 @@ const SimpleExample = () => {
 | borderRadius  | number        | 16      | Border radius of bubble |
 
 ## Examples
+
+### Basic Message with Image
+
+```jsx
+const ImageExample = () => {
+  return (
+    <ChatBubble
+      message="Check out this photo!"
+      isUser={true}
+      timestamp="12:31 PM"
+      imageUri="https://example.com/image.jpg"
+    />
+  );
+};
+```
 
 ### Custom Colors Example
 
@@ -126,6 +144,11 @@ const StyleExample = () => {
         fontSize: 18,
         fontWeight: "bold",
       }}
+      imageStyle={{
+        width: 250,
+        height: 150,
+        borderRadius: 12,
+      }}
     />
   );
 };
@@ -147,6 +170,7 @@ const ChatScreenExample = () => {
       text: "Hello! How can I help you today?",
       isUser: false,
       timestamp: "12:02 PM",
+      imageUri: "https://example.com/welcome-image.jpg",
     },
   ];
 
@@ -158,6 +182,7 @@ const ChatScreenExample = () => {
           message={msg.text}
           isUser={msg.isUser}
           timestamp={msg.timestamp}
+          imageUri={msg.imageUri}
         />
       ))}
     </View>
@@ -174,16 +199,16 @@ const ThemeExample = () => {
   const theme = {
     light: {
       userBubble: "#007AFF",
-      botBubble: "#F2F2F7",
+      receiverBubble: "#F2F2F7",
       userText: "#FFFFFF",
-      botText: "#000000",
+      receiverText: "#000000",
       timestamp: "#666666",
     },
     dark: {
       userBubble: "#0A84FF",
-      botBubble: "#2C2C2E",
+      receiverBubble: "#2C2C2E",
       userText: "#FFFFFF",
-      botText: "#FFFFFF",
+      receiverText: "#FFFFFF",
       timestamp: "#999999",
     },
   };
@@ -211,6 +236,7 @@ The component uses React.memo to prevent unnecessary re-renders. For optimal per
 - Memoize callback functions using useCallback
 - Use unique keys when rendering lists of chat bubbles
 - Avoid unnecessary prop changes
+- Consider image size optimization when using imageUri
 
 ```jsx
 const OptimizedExample = () => {
@@ -239,6 +265,12 @@ const OptimizedExample = () => {
 - Consider implementing message truncation for very long messages
 - Use appropriate maxWidth values for your layout
 
+### Images
+
+- Optimize images before loading them into chat bubbles
+- Consider implementing image lazy loading for better performance
+- Handle image loading errors gracefully
+
 ### Animations
 
 - Adjust animation timing based on your app's needs
@@ -248,11 +280,13 @@ const OptimizedExample = () => {
 
 - Provide meaningful accessibility labels
 - Ensure sufficient color contrast
+- Add appropriate alt text for images
 
 ### Styling
 
 - Use consistent styling across your app
 - Consider platform-specific styling differences
+- Test bubble layouts with various image sizes
 
 ## Contributing
 
@@ -267,15 +301,3 @@ We welcome contributions! Please follow these steps:
 ## License
 
 This project is licensed under the MIT License
-
- <!-- - see the LICENSE.md file for details -->
-
-<!-- ## Support
-
-For support, email support@yourlibrary.com or open an issue in the GitHub repository.
-
-## Acknowledgments
-
-- Thanks to all contributors
-- Inspired by modern chat interfaces
-- Built with React Native community best practices -->

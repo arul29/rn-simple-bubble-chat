@@ -7,23 +7,27 @@ import {
   ViewStyle,
   TextStyle,
   DimensionValue,
+  Image,
+  ImageStyle,
 } from "react-native";
 
 interface ChatBubbleProps {
   message: string;
   isUser: boolean;
   timestamp: string;
+  imageUri?: string; // New prop for image URI
   // Style Props
   containerStyle?: ViewStyle;
   userBubbleStyle?: ViewStyle;
-  botBubbleStyle?: ViewStyle;
+  receiverBubbleStyle?: ViewStyle;
   messageTextStyle?: TextStyle;
   timestampStyle?: TextStyle;
+  imageStyle?: ImageStyle; // New style prop for image
   // Color Props
   userBubbleColor?: string;
-  botBubbleColor?: string;
+  receiverBubbleColor?: string;
   userTextColor?: string;
-  botTextColor?: string;
+  receiverTextColor?: string;
   timestampColor?: string;
   // Animation Props
   fadeAnimationDuration?: number;
@@ -42,17 +46,19 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
   message,
   isUser,
   timestamp,
+  imageUri,
   // Style Props
   containerStyle,
   userBubbleStyle,
-  botBubbleStyle,
+  receiverBubbleStyle,
   messageTextStyle,
   timestampStyle,
+  imageStyle,
   // Color Props
   userBubbleColor = "#007AFF",
-  botBubbleColor = "#F2F2F7",
+  receiverBubbleColor = "#F2F2F7",
   userTextColor = "#FFFFFF",
-  botTextColor = "#000000",
+  receiverTextColor = "#000000",
   timestampColor = "rgba(0,0,0,0.5)",
   // Animation Props
   fadeAnimationDuration = 300,
@@ -92,18 +98,16 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
       marginBottom: 12,
       maxWidth: maxWidth as DimensionValue,
       minWidth: minWidth as DimensionValue,
-      alignSelf: "flex-start",
+      alignSelf: isUser ? "flex-end" : "flex-start",
       borderRadius: borderRadius,
       padding: bubblePadding,
     },
     userBubble: {
       backgroundColor: userBubbleColor,
-      alignSelf: "flex-end",
       borderBottomRightRadius: 4,
     },
-    botBubble: {
-      backgroundColor: botBubbleColor,
-      alignSelf: "flex-start",
+    receiverBubble: {
+      backgroundColor: receiverBubbleColor,
       borderBottomLeftRadius: 4,
     },
     messageContainer: {
@@ -117,13 +121,19 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
     userText: {
       color: userTextColor,
     },
-    botText: {
-      color: botTextColor,
+    receiverText: {
+      color: receiverTextColor,
     },
     timestampText: {
       fontSize: 10,
       color: timestampColor,
       marginTop: 4,
+    },
+    image: {
+      width: 200,
+      height: 200,
+      borderRadius: 8,
+      marginBottom: 8,
     },
   });
 
@@ -131,9 +141,9 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
     <Animated.View
       style={[
         styles.container,
-        isUser ? styles.userBubble : styles.botBubble,
+        isUser ? styles.userBubble : styles.receiverBubble,
         containerStyle,
-        isUser ? userBubbleStyle : botBubbleStyle,
+        isUser ? userBubbleStyle : receiverBubbleStyle,
         {
           opacity: fadeAnim,
           transform: [{ translateX: slideAnim }],
@@ -141,13 +151,19 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
       ]}
     >
       <View style={styles.messageContainer}>
+        {imageUri && (
+          <Image
+            source={{ uri: imageUri }}
+            style={[styles.image, imageStyle]}
+          />
+        )}
         <Text
           onTextLayout={(e) => {
             setTextWidth(e.nativeEvent.lines[0].width);
           }}
           style={[
             styles.messageText,
-            isUser ? styles.userText : styles.botText,
+            isUser ? styles.userText : styles.receiverText,
             messageTextStyle,
             { width: "auto" },
           ]}
